@@ -38,12 +38,14 @@ class Example(QtGui.QWidget):
         self.top_layout.addWidget(self.delete_button)
 
         # Set up the bottom section
-        self.bottom_frame = QtGui.QGraphicsView(self)
+        self.bottom_frame = QtGui.QFrame(self)
+        self.view = QtGui.QGraphicsView(self)
         self.bottom_frame.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.MinimumExpanding, QtGui.QSizePolicy.MinimumExpanding))
-        self.bottom_frame.setScene(QtGui.QGraphicsScene())
+        self.view.setScene(QtGui.QGraphicsScene())
         self.bottom_layout = QtGui.QVBoxLayout(self.bottom_frame)
+        self.bottom_layout.addWidget(self.view)
 
-        item = self.bottom_frame.scene().addPixmap(QtGui.QPixmap(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'resource\GuildSymbol.png')))
+        item = self.view.scene().addPixmap(QtGui.QPixmap(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'resource\GuildSymbol.png')))
         item.setFlag(QtGui.QGraphicsItem.ItemIsMovable)
 
         # Combine everything into the main widget
@@ -54,14 +56,19 @@ class Example(QtGui.QWidget):
         self.setGeometry(300, 300, 480, 350)
         self.topLevelWidget()
 
+    def lock_table(self):
+        pass
+
+    def unlock_table(self):
+        pass
 
     def add(self):
-        item = self.bottom_frame.scene().addPixmap(QtGui.QPixmap(os.path.join(os.path.dirname(os.path.realpath(__file__)),'resource\larry_the_cow-full.png')))
+        item = self.view.scene().addPixmap(QtGui.QPixmap(os.path.join(os.path.dirname(os.path.realpath(__file__)),'resource\larry_the_cow-full.png')))
         item.setFlag(QtGui.QGraphicsItem.ItemIsMovable)
 
     def delete(self):
         # print(self.bottom_frame.items()[-1])
-        self.bottom_frame.scene().removeItem(self.bottom_frame.items()[-1])
+        self.view.scene().removeItem(self.bottom_frame.items()[-1])
 
 def main():
 
